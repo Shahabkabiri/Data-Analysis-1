@@ -1,9 +1,9 @@
 import pandas as pd
 
 # Load the data from the three files into separate dataframes
-df1 = pd.read_csv(r"C:\Users\Shahab Kabiri\Dropbox\6B\6B 06-22.Last.txt", sep=";", names=["DateTime", "Ask", "Bid", "Last", "Volume"])
-df2 = pd.read_csv(r"C:\Users\Shahab Kabiri\Dropbox\6B\6B 09-22.Last.txt", sep=";", names=["DateTime", "Ask", "Bid", "Last", "Volume"])
-df3 = pd.read_csv(r"C:\Users\Shahab Kabiri\Dropbox\6B\6B 12-22.Last.txt", sep=";", names=["DateTime", "Ask", "Bid", "Last", "Volume"])
+df1 = pd.read_csv(r"6B 06-22.Last.txt", sep=";", names=["DateTime", "Ask", "Bid", "Last", "Volume"])
+df2 = pd.read_csv(r"6B 09-22.Last.txt", sep=";", names=["DateTime", "Ask", "Bid", "Last", "Volume"])
+df3 = pd.read_csv(r"6B 12-22.Last.txt", sep=";", names=["DateTime", "Ask", "Bid", "Last", "Volume"])
 
 # Concatenate the dataframes
 final_df = pd.concat([df1, df2, df3], ignore_index=True, axis=0)
@@ -20,13 +20,13 @@ final_df = final_df.loc[(final_df["DateTime"] >= start_date) & (final_df["DateTi
 final_df.set_index("DateTime", inplace=True)
 
 # Save the filtered data to a new file
-final_df.to_csv(r"C:\Users\Shahab Kabiri\Dropbox\6B\All-Time-Filtered.txt", index=True, sep=';')
+final_df.to_csv(r"All-Time-Filtered.txt", index=True, sep=';')
 
 # Resample data into 15 minute intervals and aggregate OHLC data
 resampled_data = final_df["Last"].resample("15T").ohlc()
 
 # Save the resampled data to a new file
-resampled_data.to_csv(r"C:\Users\Shahab Kabiri\Dropbox\6B\OHLC-Time-Filtered.txt", index=True, sep=';')
+resampled_data.to_csv(r"OHLC-Time-Filtered.txt", index=True, sep=';')
 
 # Print the resampled data
 print(resampled_data.head())
